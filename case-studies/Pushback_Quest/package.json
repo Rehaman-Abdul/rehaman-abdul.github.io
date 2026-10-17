@@ -1,0 +1,14 @@
+{
+  "name": "pushback-quest",
+  "version": "0.1.0",
+  "description": "A workplace simulator where you practice saying no, negotiating trade-offs and holding boundaries.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "test": "node --test",
+    "lint:content": "node tools/lint-content.mjs",
+    "simulate": "node tools/simulate.mjs"
+  }
+}

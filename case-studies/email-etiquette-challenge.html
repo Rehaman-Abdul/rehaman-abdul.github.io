@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Etiquette Challenge | Corporate Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+/* ─── RESET & BASE ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:       #0a0f1e;
+  --surface:  #111827;
+  --card:     #161d2e;
+  --border:   #1f2d46;
+  --accent:   #4ade80;
+  --accent2:  #38bdf8;
+  --warn:     #fb923c;
+  --danger:   #f87171;
+  --gold:     #fbbf24;
+  --text:     #e2e8f0;
+  --muted:    #64748b;
+  --radius:   16px;
+  --radius-lg:24px;
+  --shadow:   0 20px 60px rgba(0,0,0,.6);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 10%, rgba(74,222,128,.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 10% 90%, rgba(56,189,248,.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── GRID TEXTURE ──────────────────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── UTILITIES ─────────────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+.mono { font-family: 'DM Mono', monospace; }
+.syne { font-family: 'Syne', sans-serif; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+  border: 1px solid var(--border); color: var(--muted);
+}
+.badge-green  { background: rgba(74,222,128,.12);  border-color: rgba(74,222,128,.3);  color: #4ade80; }
+.badge-red    { background: rgba(248,113,113,.12); border-color: rgba(248,113,113,.3); color: #f87171; }
+.badge-blue   { background: rgba(56,189,248,.12);  border-color: rgba(56,189,248,.3);  color: #38bdf8; }
+.badge-gold   { background: rgba(251,191,36,.12);  border-color: rgba(251,191,36,.3);  color: #fbbf24; }
+.badge-orange { background: rgba(251,146,60,.12);  border-color: rgba(251,146,60,.3);  color: #fb923c; }
+
+/* ─── SCREENS ───────────────────────────────────────────────────────────── */
+.screen {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 780px;
+  margin: 1.5rem;
+}
+
+/* ─── SPLASH SCREEN ─────────────────────────────────────────────────────── */
+#splash {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 32px;
+  padding: 56px 48px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.logo-ring {
+  width: 88px; height: 88px; border-radius: 24px;
+  background: linear-gradient(135deg, rgba(74,222,128,.15), rgba(56,189,248,.1));
+  border: 1px solid rgba(74,222,128,.25);
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 28px;
+  box-shadow: 0 0 40px rgba(74,222,128,.12);
+}
+.logo-ring svg { width: 40px; height: 40px; color: #4ade80; }
+#splash h1 {
+  font-family: 'Syne', sans-serif; font-size: 2.4rem; font-weight: 800;
+  line-height: 1.1; margin-bottom: 12px; letter-spacing: -.02em;
+}
+#splash h1 span { color: var(--accent); }
+#splash p.sub { color: var(--muted); font-size: .95rem; max-width: 380px; margin: 0 auto 36px; line-height: 1.6; }
+
+.level-map {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; margin-bottom: 40px; flex-wrap: wrap; gap: 4px;
+}
+.lm-node {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-size: 9px; font-family: 'DM Mono', monospace; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted); cursor: default;
+}
+.lm-dot {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.lm-sep { width: 24px; height: 1px; background: var(--border); margin-bottom: 22px; }
+
+.form-group { max-width: 340px; margin: 0 auto; }
+.form-group input {
+  width: 100%; padding: 14px 20px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text); font-size: .95rem;
+  font-family: 'DM Mono', monospace; letter-spacing: .05em;
+  outline: none; margin-bottom: 12px; text-align: center;
+  transition: border-color .2s, box-shadow .2s;
+}
+.form-group input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(74,222,128,.1); }
+.form-group input::placeholder { color: var(--muted); letter-spacing: .15em; text-transform: uppercase; font-size: .8rem; }
+.form-group input.err { border-color: var(--danger); }
+
+.btn-primary {
+  width: 100%; padding: 15px 24px;
+  background: var(--accent); color: #0a0f1e;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  transition: transform .2s, box-shadow .2s, opacity .2s;
+}
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(74,222,128,.3);
+}
+.btn-primary:disabled { opacity: .3; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-primary.secondary {
+  background: transparent; color: var(--accent);
+  border: 1px solid rgba(74,222,128,.3);
+}
+.btn-primary.secondary:hover:not(:disabled) { background: rgba(74,222,128,.08); box-shadow: none; }
+
+/* ─── BOOT ──────────────────────────────────────────────────────────────── */
+#boot {
+  position: fixed; inset: 0; z-index: 100;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 20px;
+}
+.boot-bar-wrap { width: 280px; height: 2px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.boot-bar { height: 100%; background: var(--accent); border-radius: 999px; transition: width .35s ease; width: 0%; }
+#boot-msg { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .2em; text-transform: uppercase; }
+
+/* ─── GAME CONTAINER ────────────────────────────────────────────────────── */
+#game {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  min-height: 680px;
+}
+
+/* ─── HEADER ────────────────────────────────────────────────────────────── */
+.game-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+}
+.gh-left { display: flex; flex-direction: column; gap: 4px; }
+#player-tag { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .15em; }
+#level-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; }
+.gh-right { display: flex; align-items: center; gap: 12px; }
+
+/* Score pill */
+.score-pill {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 999px; padding: 6px 14px;
+}
+.score-pill .sp-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.score-pill .sp-val { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--accent); }
+
+/* Progress track */
+.progress-track {
+  padding: 12px 28px 0;
+  display: flex; align-items: center; gap: 12px;
+}
+.progress-segments { display: flex; gap: 4px; flex: 1; }
+.seg {
+  flex: 1; height: 4px; border-radius: 999px;
+  background: var(--border); transition: background .4s ease;
+  position: relative; overflow: hidden;
+}
+.seg.done { background: var(--accent); }
+.seg.active {
+  background: var(--border);
+  overflow: visible;
+}
+.seg.active::after {
+  content: '';
+  position: absolute; left: 0; top: 0;
+  height: 100%; border-radius: 999px;
+  background: var(--accent);
+  animation: segpulse 1.4s ease-in-out infinite;
+}
+@keyframes segpulse { 0%,100%{ width:30%; opacity:.5 } 50%{ width:80%; opacity:1 } }
+.prog-text { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; }
+
+/* ─── STAGE ─────────────────────────────────────────────────────────────── */
+#stage {
+  flex: 1; padding: 28px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+#stage::-webkit-scrollbar { width: 4px; }
+#stage::-webkit-scrollbar-track { background: transparent; }
+#stage::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+
+/* ─── LEVEL INTRO CARD ──────────────────────────────────────────────────── */
+.level-intro {
+  text-align: center; padding: 40px 20px;
+  animation: fadeUp .4s ease;
+}
+.li-icon { font-size: 3.5rem; margin-bottom: 20px; }
+.li-badge { margin-bottom: 16px; }
+.level-intro h2 { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
+.level-intro p { color: var(--muted); max-width: 440px; margin: 0 auto; line-height: 1.7; }
+
+/* ─── QUESTION CARD ─────────────────────────────────────────────────────── */
+.q-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 20px;
+  animation: fadeUp .3s ease;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+.q-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .15em; margin-bottom: 14px; }
+.q-text {
+  font-size: 1.05rem; font-weight: 500; line-height: 1.65;
+  color: var(--text); margin-bottom: 22px;
+}
+.q-text em {
+  font-style: normal;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2px 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: .9em;
+}
+
+/* ─── CHOICES ───────────────────────────────────────────────────────────── */
+.choices { display: flex; flex-direction: column; gap: 10px; }
+.choices.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.choice-btn {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 18px;
+  color: var(--text); font-size: .9rem; font-weight: 500;
+  cursor: pointer; text-align: left;
+  transition: border-color .18s, background .18s, transform .18s, box-shadow .18s;
+  display: flex; align-items: center; gap: 12px; position: relative;
+}
+.choice-btn::before {
+  content: ''; flex-shrink: 0;
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1.5px solid var(--border);
+  transition: border-color .18s, background .18s;
+}
+.choice-btn:hover:not(.locked) {
+  border-color: rgba(74,222,128,.4);
+  background: rgba(74,222,128,.05);
+  transform: translateY(-1px);
+}
+.choice-btn.selected-neutral {
+  border-color: rgba(56,189,248,.5);
+  background: rgba(56,189,248,.07);
+}
+.choice-btn.selected-neutral::before {
+  border-color: var(--accent2);
+  background: var(--accent2);
+  box-shadow: 0 0 8px rgba(56,189,248,.4);
+}
+.choice-btn.correct {
+  border-color: rgba(74,222,128,.5);
+  background: rgba(74,222,128,.08);
+}
+.choice-btn.correct::before { border-color: var(--accent); background: var(--accent); }
+.choice-btn.wrong {
+  border-color: rgba(248,113,113,.5);
+  background: rgba(248,113,113,.08);
+}
+.choice-btn.wrong::before { border-color: var(--danger); background: var(--danger); }
+.choice-btn.locked { cursor: default; pointer-events: none; }
+
+/* ─── FEEDBACK BOX ──────────────────────────────────────────────────────── */
+.feedback-box {
+  border-radius: var(--radius); padding: 14px 18px;
+  margin-top: 14px; font-size: .875rem; line-height: 1.6;
+  display: flex; gap: 12px; align-items: flex-start;
+  animation: fadeUp .3s ease;
+}
+.feedback-box.fb-ok  { background: rgba(74,222,128,.07);  border: 1px solid rgba(74,222,128,.25);  color: #86efac; }
+.feedback-box.fb-bad { background: rgba(248,113,113,.07); border: 1px solid rgba(248,113,113,.25); color: #fca5a5; }
+.fb-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.fb-body strong { display: block; margin-bottom: 4px; font-weight: 600; color: var(--text); }
+
+/* ─── TIMER ─────────────────────────────────────────────────────────────── */
+.timer-ring-wrap {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 999px; padding: 6px 14px;
+}
+#timer-display {
+  font-family: 'DM Mono', monospace; font-size: 1.1rem; font-weight: 500;
+  color: var(--accent); min-width: 32px; text-align: center;
+  transition: color .2s;
+}
+#timer-display.warn { color: var(--warn); }
+#timer-display.danger { color: var(--danger); animation: pulse .5s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{ opacity:1 } 50%{ opacity:.5 } }
+.timer-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; }
+
+/* ─── DRAG & DROP ───────────────────────────────────────────────────────── */
+#drag-list { display: flex; flex-direction: column; gap: 8px; max-width: 480px; margin: 0 auto; }
+.drag-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 18px;
+  cursor: grab; user-select: none;
+  display: flex; align-items: center; gap: 12px;
+  transition: border-color .2s, background .2s, transform .15s, box-shadow .15s;
+  font-size: .9rem; font-weight: 500;
+}
+.drag-item:hover { border-color: rgba(74,222,128,.3); background: rgba(74,222,128,.04); }
+.drag-item:active { cursor: grabbing; }
+.drag-item.dragging { opacity: .35; transform: scale(.98); border-color: var(--accent); }
+.drag-item.drag-over { border-color: var(--accent2); background: rgba(56,189,248,.08); transform: translateY(2px); }
+.drag-handle { color: var(--muted); font-size: 1rem; flex-shrink: 0; }
+.drag-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); flex-shrink: 0; min-width: 20px; }
+
+/* ─── SPOT THE MISTAKE ──────────────────────────────────────────────────── */
+.email-mock {
+  background: #0e1526; border: 1px solid var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
+  max-width: 520px; margin: 0 auto;
+}
+.email-header-bar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 14px 20px; display: flex; gap: 8px; align-items: center;
+}
+.email-dot { width: 10px; height: 10px; border-radius: 50%; }
+.email-body { padding: 24px; font-size: .9rem; line-height: 1.9; }
+.mistake-span {
+  background: rgba(251,146,60,.15); border-bottom: 2px solid var(--warn);
+  border-radius: 3px; padding: 1px 4px; cursor: pointer;
+  transition: background .2s;
+  position: relative;
+}
+.mistake-span:hover { background: rgba(251,146,60,.28); }
+.mistake-span.found { background: rgba(74,222,128,.15); border-color: var(--accent); }
+
+.spot-choices { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+.spot-choice {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 12px 18px;
+  cursor: pointer; font-size: .875rem;
+  display: flex; align-items: center; gap: 10px;
+  transition: all .18s;
+}
+.spot-choice:hover:not(.locked) { border-color: rgba(251,146,60,.4); background: rgba(251,146,60,.05); }
+.spot-choice.spot-selected { border-color: rgba(56,189,248,.5); background: rgba(56,189,248,.07); }
+.spot-choice.spot-correct   { border-color: rgba(74,222,128,.5); background: rgba(74,222,128,.07); color: #86efac; }
+.spot-choice.spot-wrong     { border-color: rgba(248,113,113,.5); background: rgba(248,113,113,.07); color: #fca5a5; }
+.spot-choice.locked { pointer-events: none; }
+
+/* ─── FOOTER NAV ────────────────────────────────────────────────────────── */
+.game-footer {
+  padding: 20px 28px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+#nav-hint { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+#nav-btn {
+  padding: 13px 36px;
+  background: var(--accent); color: #0a0f1e;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  font-family: 'Syne', sans-serif; font-size: .875rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  transition: transform .2s, box-shadow .2s, opacity .2s;
+  white-space: nowrap;
+}
+#nav-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(74,222,128,.3); }
+#nav-btn:disabled { opacity: .25; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ─── RESULT SCREEN ─────────────────────────────────────────────────────── */
+.result-screen { padding: 8px 0; animation: fadeUp .4s ease; }
+.result-hero { text-align: center; padding: 32px 20px 24px; }
+.rank-badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 999px; margin-bottom: 20px;
+}
+.result-score-wrap {
+  display: flex; gap: 12px; justify-content: center; margin: 20px 0;
+  flex-wrap: wrap;
+}
+.rs-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px 24px;
+  text-align: center; min-width: 130px;
+}
+.rs-box .rs-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 8px; }
+.rs-box .rs-val { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; }
+.rs-val.green  { color: var(--accent); }
+.rs-val.blue   { color: var(--accent2); }
+.rs-val.gold   { color: var(--gold); }
+
+.review-section { padding: 0 4px; }
+.review-section h3 { font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 14px; }
+.review-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px;
+  margin-bottom: 10px; font-size: .875rem;
+}
+.review-item.ri-pass { border-color: rgba(74,222,128,.2); }
+.review-item.ri-fail { border-color: rgba(248,113,113,.2); }
+.ri-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.ri-q { color: var(--text); font-weight: 500; flex: 1; }
+.ri-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; margin-bottom: 8px; font-size: .8rem; }
+.ri-meta span { color: var(--muted); }
+.ri-meta strong { font-weight: 600; }
+.ri-meta .ri-ok  { color: var(--accent); }
+.ri-meta .ri-bad { color: var(--danger); }
+.ri-why { font-size: .78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 8px; font-style: italic; }
+
+.result-actions { display: flex; gap: 12px; padding: 4px 0 8px; flex-wrap: wrap; }
+.result-actions button { flex: 1; min-width: 160px; }
+
+/* ─── LEVEL PERFORMANCE BARS ────────────────────────────────────────────── */
+.lvl-perf-grid { display: flex; flex-direction: column; gap: 10px; }
+.lvl-perf-row  { display: flex; align-items: center; gap: 12px; }
+.lvl-perf-icon { font-size: 1.1rem; flex-shrink: 0; width: 24px; text-align: center; }
+.lvl-perf-info { flex: 1; }
+.lvl-perf-top  { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+.lvl-perf-name { font-size: .8rem; font-weight: 600; color: var(--text); }
+.lvl-perf-score { font-family: 'DM Mono', monospace; font-size: .75rem; font-weight: 700; }
+.lvl-perf-score.good { color: var(--accent); }
+.lvl-perf-score.mid  { color: var(--warn); }
+.lvl-perf-score.low  { color: var(--danger); }
+.lvl-perf-bar-bg { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.lvl-perf-bar-fill { height: 100%; border-radius: 999px; transition: width .8s ease; }
+.lvl-perf-bar-fill.good { background: var(--accent); }
+.lvl-perf-bar-fill.mid  { background: var(--warn); }
+.lvl-perf-bar-fill.low  { background: var(--danger); }
+
+/* ─── AREAS OF IMPROVEMENT ──────────────────────────────────────────────── */
+.improv-list { display: flex; flex-direction: column; gap: 10px; }
+.improv-item {
+  background: rgba(251,146,60,.05); border: 1px solid rgba(251,146,60,.2);
+  border-radius: var(--radius); padding: 14px 16px;
+}
+.improv-q { font-size: .85rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.improv-row { display: flex; gap: 16px; flex-wrap: wrap; font-size: .8rem; margin-bottom: 8px; }
+.improv-wrong { color: var(--danger); font-weight: 500; }
+.improv-right { color: var(--accent); font-weight: 500; }
+.improv-tip {
+  font-size: .78rem; color: var(--warn); line-height: 1.6;
+  border-top: 1px solid rgba(251,146,60,.15); padding-top: 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SPLASH ═══════════════════════════════════════════════════════════ -->
+<div id="splash" class="screen">
+  <div class="logo-ring">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+  </div>
+  <h1 class="syne">Email <span>Etiquette</span><br>Challenge</h1>
+  <p class="sub">A gamified training experience for corporate professionals. Master business communication through 5 progressive levels.</p>
+
+  <div class="level-map">
+    <div class="lm-node"><div class="lm-dot">🎯</div><span>Tone</span></div>
+    <div class="lm-sep"></div>
+    <div class="lm-node"><div class="lm-dot">🔍</div><span>Intent</span></div>
+    <div class="lm-sep"></div>
+    <div class="lm-node"><div class="lm-dot">🔧</div><span>Structure</span></div>
+    <div class="lm-sep"></div>
+    <div class="lm-node"><div class="lm-dot">⚡</div><span>Speed</span></div>
+    <div class="lm-sep"></div>
+    <div class="lm-node"><div class="lm-dot">🔎</div><span>Spot</span></div>
+    <div class="lm-sep"></div>
+    <div class="lm-node"><div class="lm-dot">✉️</div><span>Subject</span></div>
+  </div>
+
+  <div class="form-group">
+    <input id="player-name" type="text" placeholder="Your Name / ID" maxlength="40" autocomplete="off" />
+    <button class="btn-primary" onclick="Game.boot()">Begin Training ↗</button>
+  </div>
+</div>
+
+<!-- ═══ BOOT ══════════════════════════════════════════════════════════════ -->
+<div id="boot" class="hidden">
+  <div class="boot-bar-wrap"><div id="boot-bar" class="boot-bar"></div></div>
+  <p id="boot-msg" class="mono">Initializing…</p>
+</div>
+
+<!-- ═══ GAME ══════════════════════════════════════════════════════════════ -->
+<div id="game" class="screen hidden">
+  <div class="game-header">
+    <div class="gh-left">
+      <span id="player-tag" class="mono">—</span>
+      <span id="level-title" class="syne">Level 1</span>
+    </div>
+    <div class="gh-right">
+      <div id="timer-wrap" class="timer-ring-wrap hidden">
+        <span class="timer-label">Time</span>
+        <span id="timer-display">15</span>
+      </div>
+      <div class="score-pill">
+        <span class="sp-label">Score</span>
+        <span id="score-display" class="sp-val">0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-track">
+    <div class="progress-segments" id="prog-segs"></div>
+    <span id="prog-text" class="prog-text mono">0 / 0</span>
+  </div>
+
+  <div id="stage"></div>
+
+  <div class="game-footer">
+    <span id="nav-hint" class="mono">Select an answer to continue</span>
+    <button id="nav-btn" disabled onclick="Game.advance()">Continue →</button>
+  </div>
+</div>
+
+<!-- ═══ SCRIPT ════════════════════════════════════════════════════════════ -->
+<script>
+const Game = (() => {
+
+  /* ── DATA ─────────────────────────────────────────────────────────────── */
+  const LEVELS = [
+    {
+      id: 1, type: 'mcq', title: 'Level 1 — Tone Analysis',
+      icon: '🎯', label: 'Tone',
+      badge: { text: 'Tone Classification', cls: 'badge-blue' },
+      intro: { title: 'Tone Analysis', desc: 'Classify the tone of each email snippet. Good professional communication balances directness with courtesy.' },
+      pts: 10,
+      items: [
+        { q: 'Send the report today.', opts: ['Human & Professional','Robotic','Blunt'], ans: 'Blunt', why: 'Direct commands without courtesy come across as demanding. Adding "please" and a context window softens the message.' },
+        { q: 'Greetings for the day. Kindly do the needful at the earliest convenience.', opts: ['Human & Professional','Robotic','Blunt'], ans: 'Robotic', why: '"Greetings for the day" and "do the needful" are overused clichés that make communication feel templated and impersonal.' },
+        { q: 'Could you please share the report by EOD? That would be really helpful.', opts: ['Human & Professional','Robotic','Blunt'], ans: 'Human & Professional', why: 'Clear deadline + polite framing + acknowledgment of effort — this is the gold standard of business requests.' },
+        { q: 'FYI attached.', opts: ['Human & Professional','Robotic','Blunt'], ans: 'Blunt', why: 'Without context, salutation, or action guidance, this reads as dismissive and unhelpful.' },
+        { q: 'Please be informed that the meeting has been postponed indefinitely until further notice is communicated.', opts: ['Human & Professional','Robotic','Blunt'], ans: 'Robotic', why: '"Please be informed" and redundant phrasing like "until further notice is communicated" are corporate jargon that inflate length without adding clarity.' },
+        { q: 'Hi Sarah, I wanted to loop you in on the project update. Let me know if you have questions!', opts: ['Human & Professional','Robotic','Blunt'], ans: 'Human & Professional', why: 'Name personalisation, clear purpose, and an open invitation for dialogue — all marks of warm, effective communication.' },
+      ]
+    },
+    {
+      id: 2, type: 'mcq', title: 'Level 2 — Intent Classification',
+      icon: '🔍', label: 'Intent',
+      badge: { text: 'Intent Mapping', cls: 'badge-blue' },
+      intro: { title: 'Intent Classification', desc: 'Identify the primary intent of each email snippet. Every business email belongs to one of four communication categories.' },
+      pts: 8,
+      items: [
+        { q: 'Please confirm if we can proceed with the vendor contract.', opts: ['Request','Inform','Follow-up','Schedule'], ans: 'Request', why: 'Seeking explicit authorization or confirmation from the reader is a Request pattern.' },
+        { q: 'The system maintenance has been completed successfully.', opts: ['Request','Inform','Follow-up','Schedule'], ans: 'Inform', why: 'Status updates with no immediate ask from the reader are pure Inform communications.' },
+        { q: 'Following up on the ticket raised last Tuesday — wanted to check if there\'s an update.', opts: ['Request','Inform','Follow-up','Schedule'], ans: 'Follow-up', why: 'Checking on the status of a previously initiated action is a Follow-up communication.' },
+        { q: 'The project kick-off call is scheduled for Monday, 10 AM IST.', opts: ['Request','Inform','Follow-up','Schedule'], ans: 'Schedule', why: 'Sharing time/location coordinates for a future event falls squarely into Schedule category.' },
+        { q: 'Could you please review the attached document and share your feedback?', opts: ['Request','Inform','Follow-up','Schedule'], ans: 'Request', why: 'Asking the reader to take a specific action (review + reply) is a Request.' },
+        { q: 'Just checking in — we haven\'t received a response to our proposal yet.', opts: ['Request','Inform','Follow-up','Schedule'], ans: 'Follow-up', why: 'Nudging on an unanswered prior communication is the definition of a Follow-up.' },
+      ]
+    },
+    {
+      id: 3, type: 'drag', title: 'Level 3 — Email Structure',
+      icon: '🔧', label: 'Structure',
+      badge: { text: 'Flow Assembly', cls: 'badge-gold' },
+      intro: { title: 'Protocol Flow Assembly', desc: 'Drag and reorder the email segments into the correct logical sequence. Every professional email follows a clear structural hierarchy.' },
+      pts: 20,
+      items: [
+        {
+          label: 'Scenario 1 — Status Update Email',
+          correctOrder: ['Hi Team,', 'Hope you\'re doing well.', 'The Q3 report has been completed and shared on the drive.', 'Please review it and share your feedback by Friday.', 'Let me know if you have any questions.', 'Thank you,\nAlex'],
+          why: 'Professional emails flow: Salutation → Warm opener → Core update/context → Clear call to action → Invitation for questions → Sign-off.'
+        },
+        {
+          label: 'Scenario 2 — Meeting Request Email',
+          correctOrder: ['Dear Mr. Sharma,', 'I hope this message finds you well.', 'I would like to schedule a 30-minute call to discuss the upcoming product launch.', 'Could we connect on Thursday at 3 PM IST?', 'Please let me know if that works for you, or suggest a time that is convenient.', 'Looking forward to your response.', 'Best regards,\nPriya'],
+          why: 'A meeting request email: Formal greeting → Warm opener → Clear purpose → Specific time proposal → Flexibility offer → Professional close → Sign-off.'
+        },
+        {
+          label: 'Scenario 3 — Issue Escalation Email',
+          correctOrder: ['Hi Support Team,', 'I am writing to follow up on Ticket #4821 raised on Monday.', 'The issue — login failure for 3 users — remains unresolved and is impacting daily operations.', 'Could you please prioritize this and share a resolution timeline?', 'I have attached the error logs for reference.', 'Thank you for your prompt attention to this matter.', 'Regards,\nRahul'],
+          why: 'Escalation emails: Salutation → Reference the prior ticket → Explain the business impact → Clear ask with deadline → Supporting attachments → Polite urgency → Sign-off.'
+        }
+      ]
+    },
+    {
+      id: 4, type: 'mcq-timer', title: 'Level 4 — Speed Round',
+      icon: '⚡', label: 'Speed',
+      badge: { text: 'Speed Diagnostics', cls: 'badge-orange' },
+      intro: { title: 'Speed Round', desc: 'Same skills, clock ticking! You have 15 seconds per question. Quick instinct reveals true mastery. Partial credit awarded for time remaining.' },
+      pts: 12,
+      timerSec: 15,
+      items: [
+        { q: 'No response has been received yet from the client.', opts: ['Request','Follow-up','Inform','Schedule'], ans: 'Follow-up', why: 'Noting an absence of response signals an active Follow-up situation.' },
+        { q: 'The weekly sync has been moved to Monday at 3 PM.', opts: ['Request','Follow-up','Inform','Schedule'], ans: 'Schedule', why: 'Shifting a meeting to a new time slot is a rescheduling — Schedule category.' },
+        { q: 'Please approve the budget before the deadline tomorrow.', opts: ['Request','Follow-up','Inform','Schedule'], ans: 'Request', why: 'An approval ask with urgency is a Request.' },
+        { q: 'The hotfix has been deployed to production.', opts: ['Request','Follow-up','Inform','Schedule'], ans: 'Inform', why: 'Reporting that an action has been completed — pure status information.' },
+        { q: 'Hi, just a reminder about the onboarding session tomorrow at 9 AM.', opts: ['Request','Follow-up','Inform','Schedule'], ans: 'Schedule', why: 'A reminder about an upcoming time-bound event is a Schedule signal.' },
+        { q: 'Could you forward the updated document to the stakeholders?', opts: ['Request','Follow-up','Inform','Schedule'], ans: 'Request', why: 'Delegating a specific task to the reader is a Request.' },
+      ]
+    },
+    {
+      id: 5, type: 'spot', title: 'Level 5 — Spot the Mistake',
+      icon: '🔎', label: 'Spot',
+      badge: { text: 'Error Detection', cls: 'badge-orange' },
+      intro: { title: 'Spot the Mistake', desc: 'Read the email below and identify the etiquette mistake. A real pro catches what others miss.' },
+      pts: 15,
+      items: [
+        {
+          emailLines: [
+            { text: 'hey there,', err: null },
+            { text: 'please check attached and revert ASAP!!!', err: null },
+            { text: 'its very urgent so dont delay.', err: null },
+            { text: '- john', err: null },
+          ],
+          question: 'Which element of this email is the most critical etiquette violation?',
+          opts: [
+            { label: 'No proper subject line or salutation (too casual)', correct: true },
+            { label: 'The sign-off "John" is too short', correct: false },
+            { label: 'The email is too brief — needs more detail', correct: false },
+            { label: 'Nothing wrong — it\'s a quick internal message', correct: false },
+          ],
+          why: '"hey there" is an unprofessional salutation in a business context. "revert ASAP!!!" uses slang and excessive punctuation. The email also lacks a subject, proper greeting, and closes informally. Combined, these signals damage professional credibility.'
+        },
+        {
+          emailLines: [
+            { text: 'Dear All,', err: null },
+            { text: 'Please find the attached report. As per my previous email, I had mentioned the deadline is Friday.', err: null },
+            { text: 'Kindly do the needful.', err: null },
+            { text: 'Regards,\nPriya', err: null },
+          ],
+          question: 'What is the primary communication flaw in this email?',
+          opts: [
+            { label: 'Uses jargon "do the needful" — unclear action expected', correct: true },
+            { label: 'The email should not have a deadline', correct: false },
+            { label: '"Dear All" is too formal', correct: false },
+            { label: 'The sign-off should be "Best Regards"', correct: false },
+          ],
+          why: '"Kindly do the needful" is vague corporate jargon that fails to specify what action is expected. Effective emails end with a precise call to action: "Please review and share feedback by Friday."'
+        },
+        {
+          emailLines: [
+            { text: 'Hi Mike,', err: null },
+            { text: 'I wanted to reach out regarding the matter we discussed previously and hope you had a chance to look into the same at your earliest convenience regarding the project timeline.', err: null },
+            { text: 'Looking forward to your revert.', err: null },
+            { text: 'Warm regards,\nSam', err: null },
+          ],
+          question: 'What is the biggest problem with this email?',
+          opts: [
+            { label: 'The main sentence is too long and rambling — lacks clarity', correct: true },
+            { label: '"Hi Mike" is too casual for business', correct: false },
+            { label: 'It should not say "Looking forward"', correct: false },
+            { label: 'The sign-off is wrong', correct: false },
+          ],
+          why: 'The body sentence packs multiple references ("we discussed previously", "look into the same", "at your earliest convenience") into one rambling line. Professional emails use short, scannable sentences with one clear point each.'
+        }
+      ]
+    },
+    {
+      id: 6, type: 'mcq', title: 'Level 6 — Subject Line Mastery',
+      icon: '✉️', label: 'Subject',
+      badge: { text: 'Header Optimisation', cls: 'badge-blue' },
+      intro: { title: 'Subject Line Mastery', desc: 'The subject line is your email\'s first impression. Choose the most professional and effective subject line for each scenario.' },
+      pts: 10,
+      items: [
+        {
+          q: 'You need someone to urgently review a contract. Current subject: "Please check this urgently and revert"',
+          opts: ['Approval Required: Vendor Contract – EOD Deadline','Urgent check','Feedback Needed ASAP','Just a quick one'],
+          ans: 'Approval Required: Vendor Contract – EOD Deadline',
+          why: 'Subject lines should state the action needed + what it\'s about + urgency cue (deadline). Vague subjects get ignored.'
+        },
+        {
+          q: 'A weekly team meeting has been rescheduled. Current subject: "Meeting timing changed"',
+          opts: ['Change time','Update: Meeting','Rescheduled: Weekly Sync — Now Monday 3 PM','New timing for meeting'],
+          ans: 'Rescheduled: Weekly Sync — Now Monday 3 PM',
+          why: 'Action tag (Rescheduled) + meeting name + new time in the subject prevents confusion and missed calendar updates.'
+        },
+        {
+          q: 'You are following up on an unresolved support ticket. Current subject: "No update from your side"',
+          opts: ['Follow-up: Ticket #4421 – Awaiting Resolution','Reply requested','Missing update','Still waiting…'],
+          ans: 'Follow-up: Ticket #4421 – Awaiting Resolution',
+          why: '"No update from your side" sounds accusatory. Professional follow-ups reference the ticket/item and state the status neutrally.'
+        },
+        {
+          q: 'You are sharing the monthly performance report. Current subject: "Report"',
+          opts: ['Report','FYI','Monthly Performance Report – October 2025','New attachment'],
+          ans: 'Monthly Performance Report – October 2025',
+          why: 'A subject line must specify what report, for which period. "Report" alone is unsearchable and indistinguishable from dozens of others.'
+        },
+        {
+          q: 'You need to introduce two colleagues to each other over email. Current subject: "Intro"',
+          opts: ['Intro','Introduction: Connecting Riya (UX) & Dev (Engineering)','Meeting two people','FYI – People to know'],
+          ans: 'Introduction: Connecting Riya (UX) & Dev (Engineering)',
+          why: 'Introductory emails benefit from naming both parties and their roles. This primes both recipients before they even open the email.'
+        },
+      ]
+    },
+  ];
+
+  /* ── STATE ────────────────────────────────────────────────────────────── */
+  let state = {
+    name: '',
+    lvlIdx: -1,
+    itemIdx: 0,
+    showIntro: true,
+    score: 0,
+    timerInterval: null,
+    timerLeft: 0,
+    log: [],
+    dragOrder: null,
+    dragSubmitted: false,
+    answeredCurrent: false,
+  };
+
+  /* ── DOM REFS ─────────────────────────────────────────────────────────── */
+  const $ = id => document.getElementById(id);
+
+  /* ── BOOT ─────────────────────────────────────────────────────────────── */
+  function boot() {
+    const nameInput = $('player-name');
+    const n = nameInput.value.trim();
+    if (!n) { nameInput.classList.add('err'); nameInput.focus(); return; }
+    nameInput.classList.remove('err');
+    state.name = n;
+    $('splash').classList.add('hidden');
+    $('boot').classList.remove('hidden');
+
+    const msgs = ['Validating credentials…', 'Loading question bank…', 'Calibrating difficulty…', 'Ready. Let\'s go.'];
+    let step = 0;
+    const iv = setInterval(() => {
+      $('boot-bar').style.width = ((step + 1) * 25) + '%';
+      $('boot-msg').textContent = msgs[step];
+      step++;
+      if (step >= 4) {
+        clearInterval(iv);
+        setTimeout(startGame, 500);
+      }
+    }, 450);
+  }
+
+  function startGame() {
+    $('boot').classList.add('hidden');
+    $('game').classList.remove('hidden');
+    $('player-tag').textContent = '▸ ' + state.name;
+    state.lvlIdx = 0;
+    state.showIntro = true;
+    renderCurrent();
+  }
+
+  /* ── RENDER ROUTER ────────────────────────────────────────────────────── */
+  function renderCurrent() {
+    stopTimer();
+    state.answeredCurrent = false;
+    $('nav-btn').disabled = true;
+    $('nav-btn').textContent = 'Continue →';
+    $('timer-wrap').classList.add('hidden');
+    if (state.lvlIdx >= LEVELS.length) { renderResult(); return; }
+
+    const lvl = LEVELS[state.lvlIdx];
+    updateHeader(lvl);
+    updateProgress(lvl);
+
+    if (state.showIntro) { renderLevelIntro(lvl); return; }
+
+    const item = lvl.items[state.itemIdx];
+    const stage = $('stage');
+    stage.innerHTML = '';
+
+    if      (lvl.type === 'mcq')       renderMCQ(lvl, item, stage);
+    else if (lvl.type === 'mcq-timer') renderMCQTimer(lvl, item, stage);
+    else if (lvl.type === 'drag')      renderDrag(lvl, item, stage);
+    else if (lvl.type === 'spot')      renderSpot(lvl, item, stage);
+  }
+
+  function updateHeader(lvl) {
+    $('level-title').textContent = lvl.title;
+    $('score-display').textContent = Math.round(state.score);
+  }
+
+  function updateProgress(lvl) {
+    const segs = $('prog-segs');
+    segs.innerHTML = '';
+    const total = lvl.items.length;
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('div');
+      d.className = 'seg' + (i < state.itemIdx ? ' done' : i === state.itemIdx && !state.showIntro ? ' active' : '');
+      segs.appendChild(d);
+    }
+    $('prog-text').textContent = state.showIntro ? `0 / ${total}` : `${state.itemIdx + 1} / ${total}`;
+  }
+
+  /* ── LEVEL INTRO ──────────────────────────────────────────────────────── */
+  function renderLevelIntro(lvl) {
+    $('nav-hint').textContent = 'Read the briefing';
+    $('nav-btn').textContent = 'Start Level →';
+    $('nav-btn').disabled = false;
+
+    $('stage').innerHTML = `
+      <div class="level-intro">
+        <div class="li-icon">${lvl.icon}</div>
+        <div class="li-badge"><span class="tag ${lvl.badge.cls}">${lvl.badge.text}</span></div>
+        <h2>${lvl.intro.title}</h2>
+        <p>${lvl.intro.desc}</p>
+        ${lvl.type === 'mcq-timer' ? `<p style="margin-top:14px;color:var(--warn);font-size:.85rem;">⏱ ${lvl.timerSec}s per question — faster = bonus points</p>` : ''}
+        <div style="margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
+          <span class="tag badge-green">+${lvl.pts} pts per correct answer</span>
+          <span class="tag">${lvl.items.length} Question${lvl.items.length > 1 ? 's' : ''}</span>
+        </div>
+      </div>`;
+  }
+
+  /* ── MCQ ──────────────────────────────────────────────────────────────── */
+  function renderMCQ(lvl, item, stage) {
+    $('nav-hint').textContent = 'Select an answer';
+    const isGrid = item.opts.length === 4;
+    stage.innerHTML = `
+      <div class="q-card">
+        <div class="q-label">Question ${state.itemIdx + 1} of ${lvl.items.length}</div>
+        <div class="q-text">${escHTML(item.q)}</div>
+        <div class="choices ${isGrid ? 'grid2' : ''}" id="mcq-choices"></div>
+        <div id="feedback"></div>
+      </div>`;
+    const wrap = stage.querySelector('#mcq-choices');
+    item.opts.forEach(o => {
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.dataset.opt = o;
+      btn.textContent = o;
+      btn.addEventListener('click', () => _pick(btn, o, item.ans, lvl.pts, item.why));
+      wrap.appendChild(btn);
+    });
+  }
+
+  /* ── MCQ TIMER ────────────────────────────────────────────────────────── */
+  function renderMCQTimer(lvl, item, stage) {
+    $('nav-hint').textContent = 'Race the clock!';
+    $('timer-wrap').classList.remove('hidden');
+    $('timer-display').textContent = lvl.timerSec;
+    $('timer-display').className = '';
+
+    const isGrid = item.opts.length === 4;
+    stage.innerHTML = `
+      <div class="q-card">
+        <div class="q-label">Question ${state.itemIdx + 1} of ${lvl.items.length} &nbsp;·&nbsp; Speed Round</div>
+        <div class="q-text">${escHTML(item.q)}</div>
+        <div class="choices ${isGrid ? 'grid2' : ''}" id="timer-choices"></div>
+        <div id="feedback"></div>
+      </div>`;
+    const wrap = stage.querySelector('#timer-choices');
+    item.opts.forEach(o => {
+      const btn = document.createElement('button');
+      btn.className = 'choice-btn';
+      btn.dataset.opt = o;
+      btn.textContent = o;
+      btn.addEventListener('click', () => _pickTimer(btn, o, item.ans, lvl.pts, item.why));
+      wrap.appendChild(btn);
+    });
+
+    state.timerLeft = lvl.timerSec;
+    state.timerInterval = setInterval(() => {
+      state.timerLeft--;
+      const td = $('timer-display');
+      td.textContent = state.timerLeft;
+      td.className = state.timerLeft <= 5 ? 'danger' : state.timerLeft <= 8 ? 'warn' : '';
+      if (state.timerLeft <= 0) {
+        stopTimer();
+        timeExpired(lvl, item);
+      }
+    }, 1000);
+  }
+
+  function timeExpired(lvl, item) {
+    lockChoices();
+    // highlight correct answer in red so user sees what they missed
+    document.querySelectorAll('.choice-btn').forEach(b => {
+      if (b.dataset.opt === item.ans) b.classList.add('correct');
+    });
+    $('feedback').innerHTML = feedbackHTML(false, item.ans, item.why, 'Time expired!');
+    state.log.push({ q: item.q, userAns: '(No answer — time expired)', correctAns: item.ans, correct: false, why: item.why, pts: 0 });
+    $('nav-btn').disabled = false;
+    $('nav-hint').textContent = '✗ Time\'s up — see explanation';
+    $('timer-display').textContent = '0';
+    state.answeredCurrent = true;
+  }
+
+  /* ── DRAG ─────────────────────────────────────────────────────────────── */
+  function renderDrag(lvl, item, stage) {
+    $('nav-hint').textContent = 'Drag to reorder, then submit';
+    $('nav-btn').disabled = false;
+    $('nav-btn').textContent = 'Submit Order →';
+    // Use a state flag so advance() knows drag is in "submit" vs "advance" mode
+    state.dragSubmitted = false;
+
+    const shuffled = [...item.correctOrder].sort(() => Math.random() - 0.5);
+    state.dragOrder = [...shuffled];
+
+    stage.innerHTML = `
+      <div class="q-card">
+        <div class="q-label">Scenario ${state.itemIdx + 1} of ${lvl.items.length} &nbsp;·&nbsp; ${item.label || 'Drag to arrange in order'}</div>
+        <div class="q-text">Drag and reorder the segments into the correct professional email structure.</div>
+        <div id="drag-list">
+          ${shuffled.map((t, i) => `
+            <div class="drag-item" draggable="true">
+              <span class="drag-handle">⠿</span>
+              <span class="drag-num">${i + 1}.</span>
+              <span class="drag-text" style="white-space:pre-line">${t}</span>
+            </div>`).join('')}
+        </div>
+        <div id="feedback" style="margin-top:14px"></div>
+      </div>`;
+
+    initDrag(item, lvl);
+  }
+
+  function initDrag(item, lvl) {
+    const list = $('drag-list');
+    let dragged = null;
+
+    function updateDragNums() {
+      list.querySelectorAll('.drag-item').forEach((el, i) => {
+        el.querySelector('.drag-num').textContent = (i + 1) + '.';
+        state.dragOrder[i] = el.querySelector('.drag-text').textContent.trim();
+      });
+    }
+
+    list.querySelectorAll('.drag-item').forEach(el => {
+      el.addEventListener('dragstart', e => { dragged = el; setTimeout(() => el.classList.add('dragging'), 0); });
+      el.addEventListener('dragend',   () => { el.classList.remove('dragging'); el.classList.remove('drag-over'); updateDragNums(); });
+      el.addEventListener('dragover',  e => { e.preventDefault(); el.classList.add('drag-over'); });
+      el.addEventListener('dragleave', () => { el.classList.remove('drag-over'); });
+      el.addEventListener('drop', e => {
+        e.preventDefault(); el.classList.remove('drag-over');
+        if (dragged && dragged !== el) {
+          const allItems = [...list.querySelectorAll('.drag-item')];
+          const fromIdx  = allItems.indexOf(dragged);
+          const toIdx    = allItems.indexOf(el);
+          if (fromIdx < toIdx) el.after(dragged); else el.before(dragged);
+          updateDragNums();
+        }
+      });
+    });
+
+    // Touch support
+    let touchDragged = null, touchClone = null;
+    list.querySelectorAll('.drag-item').forEach(el => {
+      el.addEventListener('touchstart', () => {
+        touchDragged = el; el.classList.add('dragging');
+        touchClone = el.cloneNode(true);
+        touchClone.style.cssText = `position:fixed;pointer-events:none;opacity:.85;z-index:999;width:${el.offsetWidth}px;transition:none;`;
+        document.body.appendChild(touchClone);
+      }, { passive: true });
+      el.addEventListener('touchmove', e => {
+        if (!touchClone || !touchDragged) return;
+        const t = e.touches[0];
+        touchClone.style.top  = (t.clientY - 30) + 'px';
+        touchClone.style.left = (t.clientX - touchDragged.offsetWidth / 2) + 'px';
+        const under = document.elementFromPoint(t.clientX, t.clientY);
+        const target = under?.closest('.drag-item');
+        if (target && target !== touchDragged) {
+          const allItems = [...list.querySelectorAll('.drag-item')];
+          const fromIdx  = allItems.indexOf(touchDragged);
+          const toIdx    = allItems.indexOf(target);
+          if (fromIdx < toIdx) target.after(touchDragged); else target.before(touchDragged);
+          updateDragNums();
+        }
+      }, { passive: true });
+      el.addEventListener('touchend', () => {
+        touchClone?.remove(); touchClone = null;
+        touchDragged?.classList.remove('dragging'); touchDragged = null;
+        updateDragNums();
+      });
+    });
+  }
+
+  // Called from advance() when drag level is active
+  function submitDrag(item, lvl) {
+    const list = $('drag-list');
+    if (!list) return;
+    const current = [...list.querySelectorAll('.drag-item')].map(el => el.querySelector('.drag-text').textContent.trim());
+    const isCorrect = JSON.stringify(current) === JSON.stringify(item.correctOrder);
+    const pts = isCorrect ? lvl.pts : 0;
+    if (isCorrect) state.score += pts;
+    $('score-display').textContent = Math.round(state.score);
+    state.log.push({ q: 'Email Flow Reorder', userAns: current.join(' → '), correctAns: item.correctOrder.join(' → '), correct: isCorrect, why: item.why, pts });
+    $('feedback').innerHTML = feedbackHTML(isCorrect, item.correctOrder.join(' → '), item.why);
+    $('nav-hint').textContent = isCorrect ? '✓ Correct order!' : '✗ Check the correct sequence';
+    $('nav-btn').textContent = 'Continue →';
+    // Lock drag items visually
+    list.querySelectorAll('.drag-item').forEach(el => { el.draggable = false; el.style.cursor = 'default'; el.style.opacity = '.7'; });
+    state.dragSubmitted = true;
+    state.answeredCurrent = true;
+  }
+
+  function lvlById(id) { return LEVELS.find(l => l.id === id) || {}; }
+
+  /* ── SPOT THE MISTAKE ─────────────────────────────────────────────────── */
+  function renderSpot(lvl, item, stage) {
+    $('nav-hint').textContent = 'Find the etiquette mistake';
+
+    stage.innerHTML = `
+      <div class="q-card">
+        <div class="q-label">Question ${state.itemIdx + 1} of ${lvl.items.length} &nbsp;·&nbsp; Read carefully</div>
+        <div class="email-mock">
+          <div class="email-header-bar">
+            <div class="email-dot" style="background:#f87171"></div>
+            <div class="email-dot" style="background:#fbbf24"></div>
+            <div class="email-dot" style="background:#4ade80"></div>
+            <span style="margin-left:8px;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)">draft email</span>
+          </div>
+          <div class="email-body">
+            ${item.emailLines.map(l => `<p style="white-space:pre-line">${escHTML(l.text)}</p>`).join('')}
+          </div>
+        </div>
+        <div class="q-text" style="margin-top:20px;margin-bottom:12px">${escHTML(item.question)}</div>
+        <div class="spot-choices" id="spot-choices"></div>
+        <div id="feedback" style="margin-top:14px"></div>
+      </div>`;
+
+    const spotWrap = stage.querySelector('#spot-choices');
+    item.opts.forEach(o => {
+      const div = document.createElement('div');
+      div.className = 'spot-choice';
+      div.dataset.correct = o.correct ? 'true' : 'false';
+      div.innerHTML = '<span>○</span> ' + escHTML(o.label);
+      div.addEventListener('click', () => _pickSpot(div, o.correct, lvl.pts, item.why));
+      spotWrap.appendChild(div);
+    });
+  }
+
+  /* ── PICK HANDLERS ────────────────────────────────────────────────────── */
+  function _pick(btn, selected, correct, pts, why) {
+    if (state.answeredCurrent) return;
+    state.answeredCurrent = true;
+    stopTimer();
+    lockChoices();
+    const isCorrect = selected === correct;
+    if (isCorrect) state.score += pts;
+    $('score-display').textContent = Math.round(state.score);
+    highlightChoice(btn, selected, correct);
+    $('feedback').innerHTML = feedbackHTML(isCorrect, correct, why);
+    state.log.push({ q: currentItem().q, userAns: selected, correctAns: correct, correct: isCorrect, why, pts: isCorrect ? pts : 0 });
+    $('nav-btn').disabled = false;
+    $('nav-hint').textContent = isCorrect ? '✓ Correct!' : '✗ Review the explanation';
+  }
+
+  function _pickTimer(btn, selected, correct, maxPts, why) {
+    if (state.answeredCurrent) return;
+    state.answeredCurrent = true;
+    const timeBonus = state.timerLeft;
+    stopTimer();
+    lockChoices();
+    const isCorrect = selected === correct;
+    const pts = isCorrect ? Math.round(maxPts * (0.5 + 0.5 * (timeBonus / LEVELS[state.lvlIdx].timerSec))) : 0;
+    if (isCorrect) state.score += pts;
+    $('score-display').textContent = Math.round(state.score);
+    highlightChoice(btn, selected, correct);
+    $('feedback').innerHTML = feedbackHTML(isCorrect, correct, why, isCorrect ? `+${pts} pts (${timeBonus}s remaining)` : null);
+    state.log.push({ q: currentItem().q, userAns: selected, correctAns: correct, correct: isCorrect, why, pts });
+    $('nav-btn').disabled = false;
+    $('timer-wrap').classList.add('hidden');
+    $('nav-hint').textContent = isCorrect ? `✓ Correct! +${pts} pts` : '✗ Review the explanation';
+  }
+
+  function _pickSpot(el, isCorrect, pts, why) {
+    if (state.answeredCurrent) return;
+    state.answeredCurrent = true;
+    const allChoices = document.querySelectorAll('.spot-choice');
+    allChoices.forEach(c => c.classList.add('locked'));
+    el.classList.add(isCorrect ? 'spot-correct' : 'spot-wrong');
+    if (!isCorrect) {
+      // Highlight the actual correct answer using data-correct attribute
+      allChoices.forEach(c => { if (c.dataset.correct === 'true') c.classList.add('spot-correct'); });
+    }
+    if (isCorrect) {
+      state.score += pts;
+      $('score-display').textContent = Math.round(state.score);
+    }
+    $('feedback').innerHTML = feedbackHTML(isCorrect, '', why);
+    const lvl = LEVELS[state.lvlIdx];
+    state.log.push({ q: lvl.items[state.itemIdx].question, userAns: el.textContent.trim().replace(/^○\s*/, ''), correctAns: '(see correct option highlighted)', correct: isCorrect, why, pts: isCorrect ? pts : 0 });
+    $('nav-btn').disabled = false;
+    $('nav-hint').textContent = isCorrect ? '✓ Good eye!' : '✗ Not quite — see explanation';
+  }
+
+  /* ── HELPERS ──────────────────────────────────────────────────────────── */
+  function currentItem() {
+    const lvl = LEVELS[state.lvlIdx];
+    return lvl ? lvl.items[state.itemIdx] : {};
+  }
+
+  function lockChoices() {
+    document.querySelectorAll('.choice-btn').forEach(b => b.classList.add('locked'));
+  }
+
+  function highlightChoice(clickedBtn, selectedVal, correctVal) {
+    document.querySelectorAll('.choice-btn').forEach(b => {
+      const v = b.dataset.opt;
+      if (v === correctVal) b.classList.add('correct');
+      else if (b === clickedBtn && v !== correctVal) b.classList.add('wrong');
+    });
+  }
+
+  function feedbackHTML(ok, correct, why, extra) {
+    return `<div class="feedback-box ${ok ? 'fb-ok' : 'fb-bad'}">
+      <span class="fb-icon">${ok ? '✓' : '✗'}</span>
+      <div class="fb-body">
+        <strong>${ok ? 'Correct!' : 'Not quite'} ${extra ? `— ${extra}` : ''}</strong>
+        ${!ok && correct ? `<span style="font-size:.8rem;opacity:.8">Correct: ${correct}</span><br>` : ''}
+        <span style="font-size:.8rem;opacity:.85">${why}</span>
+      </div>
+    </div>`;
+  }
+
+  function formatQ(txt) {
+    return txt.replace(/^(.*?:)/, '<strong>$1</strong>');
+  }
+
+  function escAttr(s) { return (s || '').replace(/'/g, '&#39;').replace(/"/g, '&quot;'); }
+  function escHTML(s)  { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function stopTimer() {
+    if (state.timerInterval) { clearInterval(state.timerInterval); state.timerInterval = null; }
+  }
+
+  /* ── ADVANCE ──────────────────────────────────────────────────────────── */
+  function advance() {
+    stopTimer();
+    const lvl = LEVELS[state.lvlIdx];
+    if (!lvl) return;
+
+    // Intro screen → start level
+    if (state.showIntro) {
+      state.showIntro = false;
+      state.itemIdx = 0;
+      state.dragSubmitted = false;
+      renderCurrent();
+      return;
+    }
+
+    // Drag level: first click = submit & score; second click = advance
+    if (lvl.type === 'drag') {
+      if (!state.dragSubmitted) {
+        submitDrag(lvl.items[state.itemIdx], lvl);
+      } else {
+        state.dragSubmitted = false;
+        advanceItem();
+      }
+      return;
+    }
+
+    // All other levels: only advance if answered
+    if (state.answeredCurrent) advanceItem();
+  }
+
+  function advanceItem() {
+    stopTimer();
+    const lvl = LEVELS[state.lvlIdx];
+    state.itemIdx++;
+    if (state.itemIdx >= lvl.items.length) {
+      state.itemIdx = 0;
+      state.lvlIdx++;
+      state.showIntro = true;
+    }
+    renderCurrent();
+  }
+
+  /* ── RESULT ───────────────────────────────────────────────────────────── */
+  function renderResult() {
+    $('game').classList.add('hidden');
+
+    const totalPossible = LEVELS.reduce((a, l) => a + l.pts * l.items.length, 0);
+    const finalScore    = Math.round(state.score);
+    const pct           = Math.round((finalScore / totalPossible) * 100);
+    const correct       = state.log.filter(l => l.correct).length;
+    const total         = state.log.length;
+
+    let rankLabel, rankCls, rankDesc, emoji;
+    if (pct >= 90) {
+      rankLabel = 'Communication Expert'; rankCls = 'badge-gold'; emoji = '🏆';
+      rankDesc = 'Outstanding! You demonstrate mastery across all dimensions of professional email communication.';
+    } else if (pct >= 75) {
+      rankLabel = 'Professional Communicator'; rankCls = 'badge-green'; emoji = '🥇';
+      rankDesc = 'Strong performance. You apply most email etiquette principles confidently and consistently.';
+    } else if (pct >= 55) {
+      rankLabel = 'Competent Correspondent'; rankCls = 'badge-blue'; emoji = '📧';
+      rankDesc = 'Good foundation. A few areas need attention — review the feedback below to sharpen your skills.';
+    } else {
+      rankLabel = 'Needs Improvement'; rankCls = 'badge-orange'; emoji = '📝';
+      rankDesc = 'Keep practising! Review the explanations carefully — each one is a step toward professional mastery.';
+    }
+
+    if (pct >= 75) {
+      setTimeout(() => confetti({ particleCount: 180, spread: 90, origin: { y: 0.55 }, colors: ['#4ade80','#38bdf8','#fbbf24'] }), 300);
+    }
+
+    // ── Build per-level performance breakdown ────────────────────────────
+    const levelNames = ['Tone Analysis', 'Intent Classification', 'Email Structure', 'Speed Round', 'Spot the Mistake', 'Subject Line'];
+    const levelIcons = ['🎯', '🔍', '🔧', '⚡', '🔎', '✉️'];
+
+    // Map log entries back to levels
+    let logIdx = 0;
+    const levelStats = LEVELS.map((lvl, li) => {
+      const count   = lvl.items.length;
+      const entries = state.log.slice(logIdx, logIdx + count);
+      logIdx += count;
+      const lvlCorrect = entries.filter(e => e.correct).length;
+      const lvlPct     = count > 0 ? Math.round((lvlCorrect / count) * 100) : 0;
+      let improvement = '';
+      if (lvlPct < 100) {
+        const failed = entries.filter(e => !e.correct);
+        if (failed.length > 0) improvement = failed[0].why;
+      }
+      return { name: levelNames[li] || lvl.title, icon: levelIcons[li], correct: lvlCorrect, total: count, pct: lvlPct, improvement };
+    });
+
+    // ── Areas of improvement (failed items only) ─────────────────────────
+    const failedItems = state.log.filter(l => !l.correct);
+    const improvHTML = failedItems.length === 0
+      ? `<div style="padding:18px;text-align:center;color:var(--accent);font-size:.9rem;font-weight:600">🎉 Perfect Score — No improvements needed!</div>`
+      : failedItems.map(l => `
+          <div class="improv-item">
+            <div class="improv-q">${l.q.length > 90 ? l.q.slice(0,90)+'…' : l.q}</div>
+            <div class="improv-row">
+              <span class="improv-wrong">✗ Your answer: ${l.userAns}</span>
+              <span class="improv-right">✓ Correct: ${l.correctAns}</span>
+            </div>
+            <div class="improv-tip">💡 ${l.why}</div>
+          </div>`).join('');
+
+    // ── Level performance bars ────────────────────────────────────────────
+    const lvlBarsHTML = levelStats.map(ls => `
+      <div class="lvl-perf-row">
+        <span class="lvl-perf-icon">${ls.icon}</span>
+        <div class="lvl-perf-info">
+          <div class="lvl-perf-top">
+            <span class="lvl-perf-name">${ls.name}</span>
+            <span class="lvl-perf-score ${ls.pct >= 80 ? 'good' : ls.pct >= 50 ? 'mid' : 'low'}">${ls.correct}/${ls.total}</span>
+          </div>
+          <div class="lvl-perf-bar-bg"><div class="lvl-perf-bar-fill ${ls.pct >= 80 ? 'good' : ls.pct >= 50 ? 'mid' : 'low'}" style="width:${ls.pct}%"></div></div>
+        </div>
+      </div>`).join('');
+
+    // ── Q-by-Q log ────────────────────────────────────────────────────────
+    const logHTML = state.log.map(l => `
+      <div class="review-item ${l.correct ? 'ri-pass' : 'ri-fail'}">
+        <div class="ri-top">
+          <span class="ri-q">${l.q.length > 80 ? l.q.slice(0,80)+'…' : l.q}</span>
+          <span class="tag ${l.correct ? 'badge-green' : 'badge-red'}">${l.correct ? 'PASS' : 'FAIL'}</span>
+        </div>
+        <div class="ri-meta">
+          <span>Your answer: <strong class="${l.correct ? 'ri-ok' : 'ri-bad'}">${l.userAns}</strong></span>
+          <span>Correct: <strong class="ri-ok">${l.correctAns}</strong></span>
+        </div>
+        <div class="ri-why">${l.why}</div>
+      </div>`).join('');
+
+    // ── Inject print CSS (hidden normally, visible on print) ──────────────
+    if (!document.getElementById('print-css')) {
+      const printStyle = document.createElement('style');
+      printStyle.id = 'print-css';
+      printStyle.textContent = `
+        @media print {
+          body { background: #fff !important; color: #111 !important; font-family: Arial, sans-serif; }
+          body::before, body::after { display:none !important; }
+          .no-print { display:none !important; }
+          .print-only { display:block !important; }
+          #result .screen, .result-card { box-shadow:none !important; border:1px solid #ddd !important; border-radius:12px !important; background:#fff !important; }
+          .game-header { background:#f4f4f4 !important; border-bottom:1px solid #ddd !important; }
+          .rs-box { background:#f9f9f9 !important; border:1px solid #ddd !important; }
+          .rs-val.green  { color:#16a34a !important; }
+          .rs-val.blue   { color:#0369a1 !important; }
+          .rs-val.gold   { color:#b45309 !important; }
+          .review-item   { border:1px solid #ddd !important; background:#fafafa !important; page-break-inside:avoid; }
+          .ri-why { color:#555 !important; }
+          .improv-item { border:1px solid #ffe0b2 !important; background:#fff8f0 !important; page-break-inside:avoid; }
+          .improv-tip  { color:#92400e !important; }
+          .lvl-perf-bar-bg { background:#e5e7eb !important; }
+          .lvl-perf-bar-fill.good { background:#16a34a !important; }
+          .lvl-perf-bar-fill.mid  { background:#d97706 !important; }
+          .lvl-perf-bar-fill.low  { background:#dc2626 !important; }
+          .tag { border:1px solid #ccc !important; color:#444 !important; background:#f0f0f0 !important; }
+          .badge-green { color:#16a34a !important; background:#dcfce7 !important; }
+          .badge-red   { color:#dc2626 !important; background:#fee2e2 !important; }
+          #result-stage { overflow:visible !important; max-height:none !important; }
+        }
+        @media screen { .print-only { display:none !important; } }
+      `;
+      document.head.appendChild(printStyle);
+    }
+
+    // ── Build DOM ─────────────────────────────────────────────────────────
+    const wrap = document.createElement('div');
+    wrap.id = 'result';
+    wrap.className = 'screen';
+    wrap.style.cssText = 'position:relative;z-index:1;';
+    wrap.innerHTML = `
+      <div class="result-card" style="background:var(--card);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);padding:0 0 8px;">
+
+        <!-- Header -->
+        <div class="game-header no-print">
+          <div class="gh-left">
+            <span class="mono" style="font-size:10px;color:var(--muted)">▸ ${state.name}</span>
+            <span class="syne" style="font-size:1.2rem;font-weight:700">Training Complete</span>
+          </div>
+          <span class="tag ${rankCls}">${rankLabel}</span>
+        </div>
+
+        <!-- Print-only header -->
+        <div class="print-only" style="padding:24px 28px 0;border-bottom:1px solid #ddd;margin-bottom:0;">
+          <h1 style="font-size:1.4rem;font-weight:800;margin:0 0 4px">Email Etiquette Challenge — Performance Report</h1>
+          <p style="font-size:.85rem;color:#555;margin:0">Trainee: <strong>${state.name}</strong> &nbsp;|&nbsp; Rank: <strong>${rankLabel}</strong> &nbsp;|&nbsp; Date: ${new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'})}</p>
+        </div>
+
+        <div id="result-stage" style="padding:24px 28px;overflow-y:auto;max-height:78vh;">
+
+          <!-- Hero -->
+          <div class="result-hero">
+            <div style="font-size:3rem;margin-bottom:12px">${emoji}</div>
+            <h2 class="syne" style="font-size:1.7rem;font-weight:800;margin-bottom:6px">Well Done, ${state.name}!</h2>
+            <p style="color:var(--muted);font-size:.875rem;max-width:420px;margin:0 auto 4px;line-height:1.6">${rankDesc}</p>
+            <div class="result-score-wrap">
+              <div class="rs-box"><div class="rs-label">Score</div><div class="rs-val green">${finalScore}<span style="font-size:.85rem;font-weight:400;color:var(--muted)">/${totalPossible}</span></div></div>
+              <div class="rs-box"><div class="rs-label">Accuracy</div><div class="rs-val blue">${pct}%</div></div>
+              <div class="rs-box"><div class="rs-label">Correct</div><div class="rs-val gold">${correct}/${total}</div></div>
+            </div>
+          </div>
+
+          <!-- Level-by-level performance -->
+          <div class="review-section" style="margin-bottom:20px">
+            <h3>Level-by-Level Performance</h3>
+            <div class="lvl-perf-grid">${lvlBarsHTML}</div>
+          </div>
+
+          <!-- Areas of Improvement -->
+          <div class="review-section" style="margin-bottom:20px">
+            <h3>Areas of Improvement</h3>
+            <div class="improv-list">${improvHTML}</div>
+          </div>
+
+          <!-- Full Q-by-Q log -->
+          <div class="review-section">
+            <h3>Question-by-Question Review</h3>
+            ${logHTML}
+          </div>
+
+          <!-- Action buttons -->
+          <div class="result-actions no-print" style="margin-top:24px">
+            <button class="btn-primary secondary" id="btn-home">🏠 Back to Home</button>
+            <button class="btn-primary" id="btn-pdf" style="background:var(--accent2);color:#0a0f1e">⬇ Download PDF Report</button>
+          </div>
+
+        </div>
+      </div>`;
+
+    document.body.appendChild(wrap);
+    document.body.style.alignItems = 'flex-start';
+    document.body.style.paddingTop  = '2rem';
+    document.body.style.paddingBottom = '2rem';
+
+    // Home button
+    wrap.querySelector('#btn-home').addEventListener('click', () => { location.reload(); });
+
+    // PDF download via window.print()
+    wrap.querySelector('#btn-pdf').addEventListener('click', () => {
+      // Temporarily expand the scroll container for print
+      const stage = document.getElementById('result-stage');
+      const prevMax = stage.style.maxHeight;
+      stage.style.maxHeight = 'none';
+      stage.style.overflow   = 'visible';
+      setTimeout(() => {
+        window.print();
+        stage.style.maxHeight = prevMax;
+        stage.style.overflow   = 'auto';
+      }, 100);
+    });
+  }
+
+
+  /* ── PUBLIC API ───────────────────────────────────────────────────────── */
+  return { boot, advance };
+})();
+
+// Enter key support on splash
+document.getElementById('player-name').addEventListener('keydown', e => {
+  if (e.key === 'Enter') Game.boot();
+});
+</script>
+</body>
+</html>

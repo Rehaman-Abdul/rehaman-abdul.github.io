@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-test:
+    name: Lint content and run unit tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: actions/setup-node@v4.1.0
+        with:
+          node-version: 22
+      - name: Content lint
+        run: npm run lint:content
+      - name: Unit tests
+        run: npm test
+
+  simulate:
+    name: Simulate (${{ matrix.role }}, 3 seeds)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        role: [hr, tech, sales, marketing, ops, servicedesk, support, finance]
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: actions/setup-node@v4.1.0
+        with:
+          node-version: 22
+      # One job per role keeps each run to a couple of minutes. The simulator
+      # exits with an error if a balance target fails.
+      - name: Path simulation and balance targets
+        run: node tools/simulate.mjs --roles ${{ matrix.role }} --seeds 3

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Pushback Quest: navigating work demands without burning out">
+  <rect width="1200" height="630" fill="#16212B"/>
+  <rect width="96" height="630" fill="#0F1C27"/>
+
+  <!-- app rail: logo mark and three nav dots -->
+  <rect x="24" y="32" width="48" height="48" rx="12" fill="#1E3448"/>
+  <path d="M36 48h24M36 56h16M36 64h20" stroke="#4FB8A5" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <circle cx="48" cy="140" r="9" fill="#33444F"/>
+  <circle cx="48" cy="184" r="9" fill="#33444F"/>
+  <circle cx="48" cy="228" r="9" fill="#33444F"/>
+
+  <!-- title block -->
+  <text x="150" y="200" font-family="'Bricolage Grotesque','Segoe UI',system-ui,sans-serif" font-size="96" font-weight="700" fill="#E6ECF1">Pushback Quest</text>
+  <text x="150" y="266" font-family="'Atkinson Hyperlegible','Segoe UI',system-ui,sans-serif" font-size="36" fill="#4FB8A5">Navigating work demands</text>
+  <text x="150" y="312" font-family="'Atkinson Hyperlegible','Segoe UI',system-ui,sans-serif" font-size="36" fill="#4FB8A5">without burning out</text>
+  <text x="150" y="376" font-family="'Atkinson Hyperlegible','Segoe UI',system-ui,sans-serif" font-size="28" fill="#9AAAB8">Eight roles. One work week.</text>
+
+  <!-- meters -->
+  <g font-family="'Atkinson Hyperlegible','Segoe UI',system-ui,sans-serif" font-size="22" fill="#E6ECF1">
+    <text x="150" y="506">Trust</text>
+    <rect x="270" y="490" width="260" height="14" rx="7" fill="#26364A"/>
+    <rect x="270" y="490" width="208" height="14" rx="7" fill="#4FB8A5"/>
+    <text x="150" y="546">Bandwidth</text>
+    <rect x="270" y="530" width="260" height="14" rx="7" fill="#26364A"/>
+    <rect x="270" y="530" width="150" height="14" rx="7" fill="#E3A94A"/>
+    <text x="150" y="586">Quality</text>
+    <rect x="270" y="570" width="260" height="14" rx="7" fill="#26364A"/>
+    <rect x="270" y="570" width="226" height="14" rx="7" fill="#4FB8A5"/>
+  </g>
+
+  <!-- conversation -->
+  <g font-family="'Atkinson Hyperlegible','Segoe UI',system-ui,sans-serif" font-size="28">
+    <rect x="640" y="290" width="520" height="84" rx="30" fill="#26364A"/>
+    <text x="672" y="342" fill="#E6ECF1">Can you build it this weekend?</text>
+
+    <rect x="600" y="394" width="560" height="128" rx="30" fill="#4FB8A5"/>
+    <text x="632" y="446" fill="#0F1C27">A clickable mock on Monday,</text>
+    <text x="632" y="490" fill="#0F1C27">live version Wednesday.</text>
+
+    <rect x="760" y="542" width="400" height="72" rx="30" fill="#26364A"/>
+    <text x="792" y="588" fill="#E6ECF1">That works. Thanks!</text>
+  </g>
+</svg>

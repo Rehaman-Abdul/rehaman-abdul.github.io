@@ -1,0 +1,89 @@
+/* Design tokens. Light values on :root, dark values via system preference
+   or the manual data-theme toggle (the toggle overrides the system setting). */
+
+:root {
+  --rail: #1e3448;
+  --surface: #f6f7f9;
+  --panel: #ffffff;
+  --text: #1a2430;
+  --text-muted: #5b6b7a;
+  --border: #d5dce3;
+  --accent: #1f7a6b;
+  --accent-contrast: #ffffff;
+  --warn: #8f5b0c;
+  --danger: #b83a33;
+  --insight: #6b5bb5;
+  --focus: #1f7a6b;
+  --bubble-other: #e8ecf0;
+  --bubble-player: var(--accent);
+  --bubble-player-text: var(--accent-contrast);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --rail: #0f1c27;
+    --surface: #16212b;
+    --panel: #1d2a36;
+    --text: #e6ecf1;
+    --text-muted: #9aaab8;
+    --border: #33444f;
+    --accent: #4fb8a5;
+    --accent-contrast: #0f1c27;
+    --warn: #e3a94a;
+    --danger: #e5736b;
+    --insight: #a99bea;
+    --focus: #4fb8a5;
+    --bubble-other: #26364a;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --rail: #0f1c27;
+  --surface: #16212b;
+  --panel: #1d2a36;
+  --text: #e6ecf1;
+  --text-muted: #9aaab8;
+  --border: #33444f;
+  --accent: #4fb8a5;
+  --accent-contrast: #0f1c27;
+  --warn: #e3a94a;
+  --danger: #e5736b;
+  --insight: #a99bea;
+  --focus: #4fb8a5;
+  --bubble-other: #26364a;
+  color-scheme: dark;
+}
+
+:root {
+  /* Fonts */
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Bricolage Grotesque", var(--font-body);
+
+  /* Type scale: 1.25 ratio from a 16px base */
+  --step--1: 0.8rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.5625rem;
+  --step-3: 1.953rem;
+  --step-4: 2.441rem;
+  --step-5: 3.052rem;
+  --leading: 1.5;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  /* Radii and sizing */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --target: 44px;
+  --measure: 65ch;
+}

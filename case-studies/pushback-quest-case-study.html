@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pushback Quest | Abdul Rehaman</title>
+  <meta name="description" content="A playable workplace chat simulator that teaches professionals to push back on unrealistic requests without burning out or burning bridges.">
+  <link rel="canonical" href="https://rehaman-abdul.github.io/case-studies/pushback-quest-case-study.html">
+  <meta property="og:title" content="Pushback Quest | Abdul Rehaman">
+  <meta property="og:description" content="A playable workplace chat simulator that teaches professionals to push back on unrealistic requests without burning out or burning bridges.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="logo" href="../index.html">AR<span>.</span></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav aria-label="Primary">
+      <ul id="primary-nav"><li><a href="../work.html" aria-current="page">Work</a></li><li><a href="../about.html">About</a></li><li><a href="../services.html">Services</a></li><li><a href="../resume.html">Resume</a></li>
+        <li><button class="theme-btn" aria-pressed="false" aria-label="Toggle dark mode">◐</button></li>
+        <li><a class="btn" href="../contact.html">Let's talk</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section class="hero" style="padding-block:4rem 2rem"><div class="wrap"><p class="eyebrow">Featured · Scenario-based learning game</p><h1>Pushback Quest</h1><p class="lead">Survive one work week without burning out or burning bridges. A chat-based simulator for practising how to say no, negotiate trade-offs and hold boundaries.</p></div></section>
+<div class="wrap"><dl class="cs-meta">
+ <div><dt>Role</dt><dd>Instructional design, writing, UX &amp; development</dd></div>
+ <div><dt>Audience</dt><dd>Working professionals in eight roles</dd></div>
+ <div><dt>Play time</dt><dd>5–8 minutes per week</dd></div>
+ <div><dt>Built with</dt><dd>HTML, CSS, JavaScript (no frameworks)</dd></div></dl>
+ <div class="actions" style="margin-top:0"><a class="btn" href="Pushback_Quest/" target="_blank" rel="noopener">Play full screen ↗</a><a class="btn ghost" href="#how">Design rationale</a></div>
+ <div class="embed"><iframe src="Pushback_Quest/" title="Pushback Quest, interactive demo" loading="lazy"></iframe></div>
+ <p class="muted" style="margin-top:.75rem">Best on desktop or tablet. Use "Play full screen" on a phone.</p></div><section class="cs-section" id="how"><div class="wrap prose"><h2>The problem</h2><p>People get unrealistic, high-pressure requests from managers, peers, clients and executives. Because of the power gap they usually respond in one of two weak ways: passive compliance, which leads to burnout and lower quality, or blunt refusal, which damages trust. The gap is rarely knowledge. It's behaviour under social pressure, so the solution is realistic practice, not a slide deck of tips.</p></div></section><section class="cs-section"><div class="wrap prose"><h2>Learning objective: Assertive Alignment</h2><p>Players practise four behaviours:</p><ol><li><strong>Trade-off framing:</strong> "I can do X. To keep the date, should we drop Y or move Z?"</li><li><strong>Clarify before committing:</strong> ask questions that reveal real effort and priorities.</li><li><strong>Impact-first language:</strong> explain pushback as business risk, not personal inconvenience.</li><li><strong>Firm boundaries:</strong> a respectful no, with a reason and an alternative, when something breaks policy, security or ethics.</li></ol></div></section><section class="cs-section"><div class="wrap prose"><h2>How it works</h2><p>The player picks a role and lives through one work week (Monday, Wednesday, Friday) inside a fictional chat app, choosing how to reply to each message. Consequences surface later in the week and a role-aware debrief closes the game.</p><div class="grid cols-2"><div class="card"><div class="body"><h3>Three meters</h3><p class="muted">Trust, Bandwidth and Quality react to every reply, so players see that each response has several costs at once.</p></div></div><div class="card"><div class="body"><h3>Insights</h3><p class="muted">Asking clarifying questions earns a pinned note that unlocks the strongest reply on Friday.</p></div></div><div class="card"><div class="body"><h3>Escalation &amp; recovery</h3><p class="muted">Blunt refusals bring in the requester's manager; only a strong assertive reply repairs it.</p></div></div><div class="card"><div class="body"><h3>Delayed consequences</h3><p class="muted">Small yeses early in the week show up as a "running on empty" event before Friday.</p></div></div><div class="card"><div class="body"><h3>Boundary moments</h3><p class="muted">When a request breaks policy, security or ethics, the right answer is a firm, respectful no with an alternative.</p></div></div><div class="card"><div class="body"><h3>Role-specific scenarios</h3><p class="muted">Eight roles, from Sales to Finance, each with their own Wednesday dilemma.</p></div></div></div></div></section><section class="cs-section"><div class="wrap prose"><h2>Design decisions</h2><ul>
+   <li><strong>Feedback in two layers.</strong> The story reacts immediately; the coaching ("why it worked", plus an assertive rewrite of your costliest mistake) waits for the debrief so the game doesn't feel like a quiz.</li>
+   <li><strong>Plausible wrong answers.</strong> Passive and aggressive options sound like what a capable person might say on a bad day.</li>
+   <li><strong>Accessible by design.</strong> No timers, full keyboard play, text and numbers alongside colour, reduced-motion support, WCAG 2.2 AA contrast.</li>
+   <li><strong>Replayable.</strong> Three difficulty levels, shuffled cards and random events, with 5–8 minute runs.</li>
+   <li><strong>Private.</strong> No backend, accounts, tracking or AI features. Progress is stored only in the browser.</li></ul></div></section><section class="cs-section"><div class="wrap prose"><h2>Engineering</h2><p><span class="tag">ES modules</span><span class="tag">No build step</span><span class="tag">Automated tests</span><span class="tag">Content linter</span><span class="tag">Path simulator</span><span class="tag">GitHub Actions</span></p><p>All scenario content lives in data files, separate from the game engine, with a simulator that checks every ending is reachable in every role.</p></div></section><section class="cs-section"><div class="wrap prose"><h2>Limitations and next steps</h2><p>The game has not yet been evaluated with learners, so I make no claims about behaviour change. Planned next steps are expert review of the scenarios by practitioners, think-aloud sessions, and a pre/post test using scenarios that aren't in the game.</p></div></section><section><div class="wrap"><div class="cta-band"><h2>Want a scenario-based learning experience?</h2><div class="actions" style="justify-content:center"><a class="btn" href="../contact.html">Start a project</a></div></div></div></section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© <span id="year">2026</span> Abdul Rehaman. All rights reserved.</p>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/abdulrehaman96">LinkedIn</a></li>
+      <li><a href="https://github.com/Rehaman-Abdul">GitHub</a></li>
+      <li><a href="mailto:Abdul.r4009@gmail.com">Email</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

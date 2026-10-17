@@ -1,151 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdul Rehaman | Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root { --yellow: #007bff; --dark: #121212; }
-        body { font-family: 'Inter', sans-serif; background-color: #fff; color: var(--dark); }
-
-        /* Hero Section */
-        .hero { position: relative; padding: 100px 0; overflow: hidden; }
-        .yellow-circle { 
-            position: absolute; width: 500px; height: 500px; 
-            background: var(--yellow); border-radius: 50%; 
-            right: -100px; top: 50px; z-index: -1; 
-        }
-        .hero h1 { font-size: 5rem; font-weight: 900; line-height: 1; margin-bottom: 20px; }
-        .hero .subtitle { font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #666; }
-
-        /* Stats Bar */
-        .stats { background: #f9f9f9; padding: 40px 0; border-bottom: 1px solid #eee; }
-        .stat-item h2 { font-size: 2.5rem; font-weight: 900; margin: 0; }
-        
-        /* Timeline Section */
-        .timeline-item { border-left: 2px solid var(--dark); padding-left: 30px; position: relative; margin-bottom: 40px; }
-        .timeline-item::before { 
-            content: ''; position: absolute; left: -9px; top: 0; 
-            width: 16px; height: 16px; background: var(--yellow); border-radius: 50%; 
-        }
-        .year-label { font-weight: 900; font-size: 1.2rem; display: block; margin-bottom: 5px; }
-
-        /* General Branding */
-        .btn-black { background: var(--dark); color: white; border-radius: 0; padding: 15px 35px; font-weight: 700; }
-        .section-title { font-size: 2.5rem; font-weight: 900; margin-bottom: 50px; text-transform: uppercase; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abdul Rehaman | Content Developer &amp; Instructional Designer, Bengaluru</title>
+  <meta name="description" content="Senior Content Developer in Bengaluru with 5+ years creating tutorial videos, eLearning, user guides and AI-powered support for SaaS and mobile products.">
+  <link rel="canonical" href="https://www.arcreativefolio.in/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Abdul Rehaman | Content Developer &amp; Instructional Designer">
+  <meta property="og:description" content="Tutorial videos, eLearning and product content that reduce support load.">
+  <meta property="og:image" content="https://www.arcreativefolio.in/assets/img/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0e1116">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Person","name":"Abdul Rehaman","jobTitle":"Senior Content Developer & Instructional Designer","url":"https://www.arcreativefolio.in/","sameAs":["https://www.linkedin.com/in/abdulrehaman96","https://github.com/Rehaman-Abdul"]}
+  </script>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white py-4">
-        <div class="container">
-            <a class="navbar-brand fw-black fs-3" href="index.html">B.</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto fw-bold text-uppercase" style="letter-spacing: 1px;">
-                    <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="projects.html">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#contact">Contacts</a></li>
-                </ul>
-            </div>
-        </div>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="logo" href="index.html">AR<span>.</span></a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav aria-label="Primary">
+      <ul id="primary-nav">
+        <li><a href="work.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><button class="theme-btn" aria-pressed="false" aria-label="Toggle dark mode">◐</button></li>
+        <li><a class="btn" href="contact.html">Let's talk</a></li>
+      </ul>
     </nav>
+  </div>
+</header>
 
-    <!-- Hero -->
-    <section class="hero container">
-        <div class="yellow-circle"></div>
-        <div class="row align-items-center">
-            <div class="col-md-7">
-                <p class="subtitle">Digital Learning Specialist</p>
-                <h1>ABDUL <br> REHAMAN</h1>
-                <p class="lead mb-4">"Less is More." Focused on creating elegant, automated digital experiences.</p>
-                <a href="projects.html" class="btn btn-black">VIEW MY PROJECTS</a>
-            </div>
-            <div class="col-md-5">
-                <!-- Replace with your photo later -->
-                <img src="Ar DP.jpg" alt="Abdul" class="img-fluid">
-            </div>
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Content Developer · Instructional Design · Multimedia</p>
+        <h1>I design learning people <em>actually finish.</em></h1>
+        <p class="lead">Senior Content Developer with 5+ years turning complex SaaS and mobile product features into tutorial videos, eLearning and guides that cut support queries.</p>
+        <div class="actions">
+          <a class="btn" href="work.html">View my work</a>
+          <a class="btn ghost" href="assets/pdf/Abdul-Rehaman-Resume.pdf" download>Download CV</a>
         </div>
-    </section>
-
-    <!-- Stats Bar -->
-    <section class="stats text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 stat-item"><h2>2+</h2><p>Years Experience</p></div>
-                <div class="col-md-4 stat-item"><h2>15+</h2><p>Projects Done</p></div>
-                <div class="col-md-4 stat-item"><h2>5+</h2><p>Key Stakeholders</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education & Experience -->
-    <section class="container py-5">
-        <h2 class="section-title text-center">Education & Experience</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="timeline-item">
-                    <span class="year-label">2026 - PRESENT</span>
-                    <h4>UCT - INSTRUCTIONAL DESIGN</h4>
-                    <p>Enrolled in the professional certification program focusing on pedagogical frameworks and digital learning.</p>
-                </div>
-                <div class="timeline-item">
-                    <span class="year-label">2026</span>
-                    <h4>AI AUTOMATION CORE</h4>
-                    <p>Developing structured output agents using Python, Gemini API, and Google Cloud.</p>
-                </div>
-                <div class="timeline-item">
-                    <span class="year-label">2026</span>
-                    <h4>DIGITAL LEARNING SPECIALIST</h4>
-                    <p>Working within People and Organization Development (POD) to lead Generative AI workshops.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- My Services Section -->
-<section class="container py-5">
-    <h2 class="section-title text-center">My Expertise</h2>
-    <div class="row text-center mt-5">
-        <!-- Service 1: AI Automation -->
-        <div class="col-md-4 mb-4">
-            <div class="p-4 border shadow-sm h-100">
-                <i class="fa-brands fa-python fa-3x mb-3 text-warning"></i>
-                <h3 class="h5 fw-bold">AI AUTOMATION</h3>
-                <p class="small text-muted">Building structured output agents using Gemini API and Python for workflow efficiency.</p>
-                <div class="fw-bold mt-2">95%</div> <!-- Skill percentage style from template -->
-            </div>
-        </div>
-        <!-- Service 2: Instructional Design -->
-        <div class="col-md-4 mb-4">
-            <div class="p-4 border shadow-sm h-100">
-                <i class="fa-solid fa-chalkboard-user fa-3x mb-3 text-warning"></i>
-                <h3 class="h5 fw-bold">LEARNING DESIGN</h3>
-                <p class="small text-muted">Applying VARK and CHAT frameworks to create high-impact digital learning experiences.</p>
-                <div class="fw-bold mt-2">98%</div>
-            </div>
-        </div>
-        <!-- Service 3: Visual Content -->
-        <div class="col-md-4 mb-4">
-            <div class="p-4 border shadow-sm h-100">
-                <i class="fa-solid fa-clapperboard fa-3x mb-3 text-warning"></i>
-                <h3 class="h5 fw-bold">MOTION GRAPHICS</h3>
-                <p class="small text-muted">Utilizing Adobe After Effects to enhance visual storytelling in instructional projects.</p>
-                <div class="fw-bold mt-2">85%</div>
-            </div>
-        </div>
+      </div>
+      <div class="portrait" aria-hidden="true">AR</div>
+      <!-- Replace with: <div class="portrait"><img src="assets/img/portrait.jpg" alt="Portrait of Abdul Rehaman" width="800" height="1000"></div> -->
     </div>
-</section>
+  </section>
 
-    <footer class="bg-dark text-white py-5 text-center">
-        <p>&copy; 2026 Abdul Rehaman | Built with GitHub Pages</p>
-    </footer>
+  <div class="strip">
+    <ul class="wrap" aria-label="Tools and expertise">
+      <li>Articulate Rise &amp; Storyline</li><li>iSpring Suite</li><li>Adobe Premiere Pro</li><li>Photoshop &amp; Illustrator</li><li>Filmora</li><li>LMS Administration</li>
+    </ul>
+  </div>
 
+  <section id="work">
+    <div class="wrap">
+      <p class="eyebrow">Selected work</p>
+      <h2>Projects with measurable outcomes</h2>
+      <div class="grid cols-3">
+        <article class="card reveal"><a class="stretch" href="case-studies/email-etiquette-case-study.html"><div class="thumb">Play it ▶</div><div class="body"><span class="tag">Featured</span><span class="tag">Gamified eLearning</span><h3>Email Etiquette Challenge</h3><p class="muted">A playable six-level game that trains professionals to write clearer emails.</p></div></a></article>
+        <article class="card reveal"><a class="stretch" href="case-studies/pushback-quest-case-study.html"><div class="thumb">Play it ▶</div><div class="body"><span class="tag">Featured</span><span class="tag">Scenario game</span><h3>Pushback Quest</h3><p class="muted">A playable workplace simulator for practising how to say no without burning bridges.</p></div></a></article>
+        <article class="card reveal"><a class="stretch" href="work.html"><div class="thumb">Automation</div><div class="body"><span class="tag">AI</span><span class="tag">Support</span><h3>AI WhatsApp support chatbot</h3><p class="muted">Meta + Make + Gemini: first response time down 80%.</p></div></a></article>
+      </div>
+      <div class="actions"><a class="btn ghost" href="work.html">See all projects</a></div>
+    </div>
+  </section>
+
+  <section id="services" style="background:var(--surface)">
+    <div class="wrap">
+      <p class="eyebrow">What I do</p>
+      <h2>End-to-end learning design</h2>
+      <div class="grid cols-3">
+        <div class="card reveal"><div class="body"><div class="icon" aria-hidden="true">🎓</div><h3>Instructional Design</h3><p class="muted">Training needs analysis, storyboards and learning modules, including LMS administration and onboarding programs.</p></div></div>
+        <div class="card reveal"><div class="body"><div class="icon" aria-hidden="true">💻</div><h3>eLearning &amp; Documentation</h3><p class="muted">Rise, Storyline and iSpring modules, SCORM packages, how-to guides and manuals.</p></div></div>
+        <div class="card reveal"><div class="body"><div class="icon" aria-hidden="true">🎬</div><h3>Video &amp; Visual Content</h3><p class="muted">Scripted tutorial videos, infographics and UX writing for web and mobile.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <p class="eyebrow">How I work</p>
+      <h2>A process that respects your learners</h2>
+      <div class="steps">
+        <div class="step"><h3>Discover</h3><p class="muted">Goals, audience, constraints, success metrics.</p></div>
+        <div class="step"><h3>Design</h3><p class="muted">Objectives, storyboards, visual direction, prototypes.</p></div>
+        <div class="step"><h3>Develop</h3><p class="muted">Build, review cycles, accessibility and QA.</p></div>
+        <div class="step"><h3>Deliver</h3><p class="muted">Launch, evaluate, iterate with real data.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--surface)">
+    <div class="wrap">
+      <div class="stats" aria-label="Impact highlights">
+        <div><strong>5+</strong>Years experience</div>
+        <div><strong>300+</strong>Tutorial videos</div>
+        <div><strong>45%</strong>Fewer onboarding queries</div>
+        <div><strong>4.7/5</strong>Content rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials: add a section here once you have real quotes -->
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <h2>Have a learning challenge?</h2>
+        <p>Let's turn it into an experience people remember.</p>
+        <div class="actions" style="justify-content:center"><a class="btn" href="contact.html">Start a conversation</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© <span id="year">2026</span> Abdul Rehaman. All rights reserved.</p>
+    <ul>
+      <li><a href="https://www.linkedin.com/in/abdulrehaman96">LinkedIn</a></li>
+      <li><a href="https://github.com/Rehaman-Abdul">GitHub</a></li>
+      <li><a href="mailto:Abdul.r4009@gmail.com">Email</a></li>
+    </ul>
+  </div>
+</footer>
+<script src="assets/js/main.js" defer></script>
 </body>
 </html>
